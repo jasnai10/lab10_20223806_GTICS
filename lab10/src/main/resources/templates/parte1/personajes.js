@@ -61,7 +61,7 @@ $(document).ready(function() {
             });
     }
 
-    // --- Eventos de Clic de AoT ---
+
     $("#aot-next").click(function() {
         if (aotNextPageUrl) {
             cargarAttackOnTitan(aotNextPageUrl);
@@ -74,26 +74,21 @@ $(document).ready(function() {
         }
     });
 
-    // Evento para el filtro
     $("#aot-filter-status").change(function() {
         var status = $(this).val();
         var filterUrl = AOT_API_URL;
 
-        if (status) { // Si se seleccionó algo
+        if (status) {
             filterUrl = AOT_API_URL + "?status=" + status;
         }
 
         cargarAttackOnTitan(filterUrl);
     });
 
-    // Carga inicial de AoT
+
     cargarAttackOnTitan(AOT_API_URL);
 
-    /**
-     * ==========================================================
-     * 2. LÓGICA DE DEMON SLAYER (DS)
-     * ==========================================================
-     */
+
     function cargarDemonSlayer(url) {
 
         $.ajax({
@@ -104,21 +99,15 @@ $(document).ready(function() {
             .done(function(data) {
                 var personajes = data.content;
 
-                // Actualizamos el contador
-                $("#ds-total").text(data.pagination.totalElements);
 
-                // Guardamos las URLs de paginación
+                $("#ds-total").text(data.pagination.totalElements);
                 dsNextPageUrl = data.pagination.nextPage;
                 dsPrevPageUrl = data.pagination.previousPage;
-
-                // Activamos o desactivamos botones
                 $("#ds-next").prop("disabled", !dsNextPageUrl);
                 $("#ds-prev").prop("disabled", !dsPrevPageUrl);
-
                 $("#ds-gallery").empty();
-
                 personajes.forEach(function(char) {
-                    // Creamos la "Card"
+
                     var cardHtml = `
                     <div class="card ds-card" data-id="${char.id}">
                         <img src="${char.img}" alt="${char.name}">
@@ -135,7 +124,7 @@ $(document).ready(function() {
             });
     }
 
-    // --- Eventos de Clic de DS ---
+
     $("#ds-next").click(function() {
         if (dsNextPageUrl) {
             cargarDemonSlayer(dsNextPageUrl);
@@ -148,26 +137,18 @@ $(document).ready(function() {
         }
     });
 
-    // Carga inicial de DS
+
     cargarDemonSlayer(DS_API_URL);
 
 
-    /**
-     * ==========================================================
-     * 3. LÓGICA DEL MODAL (GLOBAL)
-     * ==========================================================
-     */
-
-    // Función simple para llenar el modal con datos
     function poblarModal(objeto) {
-        $("#modal-body").empty(); // Limpiamos el modal
+        $("#modal-body").empty();
 
-        // Recorremos el objeto y creamos un <p> para cada dato
-        // (Esto cumple con "mostrar absolutamente todos los datos")
+
         for (var key in objeto) {
             var valor = objeto[key];
 
-            // Si el valor es otro objeto, lo convertimos a texto
+
             if (typeof valor === 'object' && valor !== null) {
                 valor = JSON.stringify(valor);
             }
@@ -175,7 +156,7 @@ $(document).ready(function() {
             $("#modal-body").append("<p><strong>" + key + ":</strong> " + valor + "</p>");
         }
 
-        $("#modal-fondo").show(); // Mostramos el modal
+        $("#modal-fondo").show();
     }
 
     $("#aot-gallery").on("click", ".aot-card", function() {
@@ -210,7 +191,7 @@ $(document).ready(function() {
 
 
     $("#btn-modal-cerrar").click(function() {
-        $("#modal-fondo").hide(); // Ocultamos el modal
+        $("#modal-fondo").hide();
     });
 
 });
