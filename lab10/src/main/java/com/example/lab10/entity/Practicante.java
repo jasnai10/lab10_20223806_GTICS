@@ -19,4 +19,16 @@ public class Practicante {
 
     @Column(name = "carrera")
     private String carrera;
+
+    @Column(name = "universidad")
+    private String universidad;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "pais")
+    private String pais;
+
+    @Column(name = "estado")
+    private String estado;
 }
